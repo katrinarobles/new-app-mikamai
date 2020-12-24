@@ -1,0 +1,49 @@
+class ArticlesController < ApplicationController
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  def index
+    @articles = policy_scope(Article)
+  end
+
+  def show
+  end
+
+  def new
+    @article = Article.new
+    authorize @article
+  end
+
+  def create
+    @article = Article.new(article_params)
+    @article.user = current_user
+    authorize @article
+    if @article.save
+      redirect_to @article, notice: 'Shared successfully!'
+    else
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @article.update(article_params)
+      redirect_to @article, notice: 'Shared successfully!'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+  end
+
+  private
+  def article_params
+    params.require(:article).permit(:field_title, :text, :user_id)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
+    authorize @article
+  end
+end
