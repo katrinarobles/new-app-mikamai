@@ -2,8 +2,9 @@
   <p>Author: <%= @article.author%></p>
 
     <p>Description: <%= @article.text %></p>
-<%= link_to 'Edit', edit_article_path(@article) %> ||
- <%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %>
-  </div>
+    <p> <% if policy(@article).edit? %><%= link_to 'Edit', edit_article_path(@article) %> <% end %>
+      <% if policy(@article).destroy? %><%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %> <% end %></p>
 
-  <div class='card-show'>
+<p>Created at: <%= @article.created_at%> || Last Updated: <%= @article.updated_at%></p>
+
+

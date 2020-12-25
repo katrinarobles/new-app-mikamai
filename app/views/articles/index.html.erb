@@ -1,3 +1,5 @@
 <% @articles.each do  |article| %>
-    <p> <%= link_to article.field_title, article_path(article) %> - <%= link_to 'Edit', edit_article_path(article) %> || <%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %></p>
+    <p> <%= link_to article.field_title, article_path(article) %> -
+      <% if policy(article).edit? %><%= link_to 'Edit', edit_article_path(article) %> <% end %>||
+      <% if policy(article).destroy? %><%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %> <% end %></p>
   <% end %>

@@ -1,6 +1,7 @@
 class ArticlePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
+      # scope.all
       scope.where(user: user)
     end
   end
@@ -14,6 +15,16 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def update?
-    user == record.user
+    user_admin_or_owner?
+  end
+
+  def destroy?
+    user_admin_or_owner?
+  end
+
+  private
+
+  def user_admin_or_owner?
+    user == record.user || user.admin
   end
 end
