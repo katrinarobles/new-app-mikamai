@@ -10,7 +10,7 @@
     </div>
     <div class="featured">
       <% @articles.each do  |article| %>
-      <p> <%= link_to article.field_title, article_path(article) %> </p>
+      <p> <%= link_to article.title, article_path(article) %> By: <%= article.author %></p>
       <% end %>
     </div>
   </div>

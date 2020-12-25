@@ -3,6 +3,8 @@ class Article < ApplicationRecord
   attr_reader :author
 
   def author
-    User.find(self.user_id).surname
+    @name = User.find(self.user_id).name
+    @surname = User.find(self.user_id).surname
+    return "#{@name} #{@surname}"
   end
 end
