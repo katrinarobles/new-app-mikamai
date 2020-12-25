@@ -1,5 +1,40 @@
-<div class="home-banner">
+<!-- <div class="home-banner">
   <h1>Atlas News</h1>
+</div> -->
+<div class="carousel-container">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+          <%= cl_image_tag @article1.photo.key, class: "image-carousel d-block w-100", alt: "First slide" %>
+        <div class="carousel-caption d-none d-md-block">
+          <h1> <%= @article1.title %></h1>
+          <p><%= @article1.author %></p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= cl_image_tag @article2.photo.key, class: "image-carousel d-block w-100", alt: "Second slide" %>
+        <div class="carousel-caption d-none d-md-block">
+          <h1><%= @article2.title %></h1>
+          <p><%= @article2.author %></p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag 'newspaper.jpg', class: "image-carousel d-block w-100", alt: "Third slide" %>
+        <div class="carousel-caption d-none d-md-block">
+          <h1></h1>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 </div>
 
 <div class="container">
@@ -12,10 +47,29 @@
       <p><%= link_to "Login", new_user_session_path %> || <%= link_to "Sign Up", new_user_registration_path%></p>
     <% end %>
     </div>
-    <div class="featured">
-      <% @articles.each do  |article| %>
-      <p> <%= link_to article.title, article_path(article) %> By: <%= article.author %></p>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-2">
+      <%= form_tag root_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Search for an article"
+        %>
+        <p><%= submit_tag "Search", class: "btn btn-primary" %></p>
       <% end %>
+      <div id="movies">
+        <% @articles.each do |article| %>
+          <h4><%= article.title %></h4>
+          <p><%= article.text %></p>
+          <p><%= article.author %></p>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

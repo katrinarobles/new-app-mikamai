@@ -1,8 +1,9 @@
 .home-banner {
-  background-image: url('newspaper.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,1)), url('newspaper.jpg');
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   color: #eee;
   text-align: center;
-  padding-top: 40vh;
+  padding-top: 30vh;
+  padding-bottom: 30vh;
 }

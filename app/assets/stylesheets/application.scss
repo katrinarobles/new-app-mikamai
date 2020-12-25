@@ -15,3 +15,14 @@
 body {
   text-align: center;
 }
+
+a {
+  text-decoration: none;
+  color: grey;
+}
+
+a:hover {
+  color: white;
+  opacity: 0.8;
+  text-decoration: none;
+}
