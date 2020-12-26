@@ -1,25 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
 require 'faker'
 require 'json'
 require 'open-uri'
+require 'pry'
 
 User.destroy_all
 Article.destroy_all
 
 url = 'https://source.unsplash.com/700x700/?face'
-url_article = 'https://source.unsplash.com/700x700/?new'
+# url_article = 'https://source.unsplash.com/700x700/?new'
+
 
 
 puts 'Creating 5 fake users...'
 
 u_count = 1
-5.times do
+3.times do
   file = URI.open(url)
   user = User.new(
     email: "user#{u_count}@email.com",
@@ -34,20 +30,50 @@ u_count = 1
 end
 puts 'Finished!'
 
-puts 'Creating 5 articles for each user'
+# puts 'Creating 5 articles for each user'
+# c_count = 0
+# User.all.each do |user|
+#   4.times do
+#     file_article = URI.open(url_article)
+#     article = Article.new(
+#       title: "#{Faker::Hipster.sentence(word_count: 3)}",
+#       text: "#{Faker::Hipster.paragraph_by_chars(characters: 1200, supplemental: false)}",
+#     )
+#     article.photo.attach(io: file_article, filename: "article#{c_count}.png", content_type: 'image/png')
+#     c_count += 1
+#     article.user = user
+#     article.save
+#   end
+# end
+
+# puts 'Finished!'
+puts "Creating articles for users"
+
+api_key = "52e52aec44c84a94905af03a0e830258"
+url = "http://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=#{api_key}"
+articles_serialized = open(url).read
+articles_parse = JSON.parse(articles_serialized)
+# Pry::ColorPrinter.pp(articles_parse)
+
+articles = articles_parse["articles"]
+# Pry::ColorPrinter.pp(articles)
 c_count = 0
+
 User.all.each do |user|
-  4.times do
-    file_article = URI.open(url_article)
-    article = Article.new(
-      title: "#{Faker::Hipster.sentence(word_count: 3)}",
-      text: "#{Faker::Hipster.paragraph_by_chars(characters: 1200, supplemental: false)}",
-    )
-    article.photo.attach(io: file_article, filename: "article#{c_count}.png", content_type: 'image/png')
+  3.times do
+    article = articles[c_count]
+    title = article["title"]
+    content = article["content"]
+    file = URI.open(article["urlToImage"])
+    new_article = Article.new(
+      title: title,
+      text: content
+      )
+    new_article.photo.attach(io: file, filename: "article#{c_count}.png", content_type: 'image/png')
     c_count += 1
-    article.user = user
-    article.save
+    new_article.user_id = user.id
+    new_article.save
   end
 end
 
-puts 'Finished!'
+puts 'Finish'
