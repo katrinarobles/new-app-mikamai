@@ -1,16 +1,15 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-6 m-2">
+    <div class="col-8 m-2">
       <%= cl_image_tag @article.photo.key, height: 300, width: 400, crop: :fill %>
       <h1><%= @article.title %></h1>
       <p>Author: <%= @article.author%></p>
 
-      <p>Description: <%= @article.text %></p>
-      <p> <% if policy(@article).edit? %><%= link_to 'Edit', edit_article_path(@article) %> <% end %>
-          <% if policy(@article).destroy? %><%= link_to 'Destroy', article_path(@article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %> <% end %></p>
+      <p> <%= @article.text %></p>
+      <p> <% if policy(@article).edit? %><%= link_to edit_article_path(@article) do %><i class="far fa-edit"></i> <% end %><% end %>
+          <% if policy(@article).destroy? %><%= link_to article_path(@article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } do %> <i class="far fa-trash-alt"></i> <% end %><% end %></p>
 
       <p>Created at: <%= @article.created_at%> || Last Updated: <%= @article.updated_at%></p>
     </div>
   </div>
 </div>
-

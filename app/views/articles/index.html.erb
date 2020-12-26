@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-6 m-2">
+    <div class="col-8 m-2">
       <% @articles.each do  |article| %>
     <p> <%= link_to article.title, article_path(article) %> -
       <% if policy(article).edit? %><%= link_to 'Edit', edit_article_path(article) %> <% end %>||

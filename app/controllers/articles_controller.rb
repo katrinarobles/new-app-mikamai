@@ -4,11 +4,9 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = policy_scope(Article)
-    console
   end
 
   def show
-    console
   end
 
   def new

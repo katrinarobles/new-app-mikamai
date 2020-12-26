@@ -54,18 +54,20 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 offset-sm-2">
-      <%= form_tag root_path, method: :get do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control",
-          placeholder: "Search for an article"
-        %>
-        <p><%= submit_tag "Search", class: "btn btn-primary" %></p>
-      <% end %>
-      <div id="movies">
+    <div class="col-12 m-2">
+      <div class="srch-bar">
+        <%= form_tag root_path, method: :get do %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Search for an article"
+          %>
+          <p><%= submit_tag "Search", class: "btn btn-primary m-2" %></p>
+        <% end %>
+    </div>
+      <div id="articles-list">
         <% @articles.each do |article| %>
-          <h4><%= article.title %></h4>
+          <h4><%= link_to article.title, article_path(article) %></h4>
           <p><%= article.text %></p>
           <p><%= article.author %></p>
         <% end %>
