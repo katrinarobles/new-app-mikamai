@@ -2,8 +2,10 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
-    @article1 = Article.all.sample
-    @article2 = Article.all.sample
+    @article1 = sample
+    @article2 = sample
+    @article3 = sample
+
     if params[:query].present?
       @articles = Article.search_by_title_text_author(params[:query])
     else
@@ -13,5 +15,11 @@ class PagesController < ApplicationController
 
   def dashboard
     @user = current_user
+    console
+  end
+  private
+
+  def sample
+    Article.all.sample
   end
 end

@@ -7,22 +7,22 @@
       <div class="carousel-item active">
           <%= cl_image_tag @article1.photo.key, class: "image-carousel d-block w-100", alt: "First slide" %>
         <div class="carousel-caption d-none d-md-block">
-          <h1> <%= @article1.title %></h1>
+          <h1> <%= link_to @article1.title, article_path(@article1) %></h1>
           <p><%= @article1.author %></p>
         </div>
       </div>
       <div class="carousel-item">
         <%= cl_image_tag @article2.photo.key, class: "image-carousel d-block w-100", alt: "Second slide" %>
         <div class="carousel-caption d-none d-md-block">
-          <h1><%= @article2.title %></h1>
+          <h1><%= link_to @article2.title, article_path(@article2) %></h1>
           <p><%= @article2.author %></p>
         </div>
       </div>
       <div class="carousel-item">
-        <%= image_tag 'newspaper.jpg', class: "image-carousel d-block w-100", alt: "Third slide" %>
+        <%= cl_image_tag @article3.photo.key, class: "image-carousel d-block w-100", alt: "Third slide" %>
         <div class="carousel-caption d-none d-md-block">
-          <h1></h1>
-          <p></p>
+          <h1><%= link_to @article3.title, article_path(@article3) %></h1>
+          <p><%= @article3.author %></p>
         </div>
       </div>
     </div>
