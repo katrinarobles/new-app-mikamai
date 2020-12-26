@@ -10,3 +10,14 @@
     </div>
   </div>
 </div>
+
+
+<div class="field">
+  <%= form.label :title %>
+  <%= form.text_filed :title %>
+</div>
+
+<div class="field">
+  <%= form.label :created_at %>
+  <%= form.text_field :created_at, data: { behavior: "flatpickr"} %>
+</div>

@@ -1,0 +1,28 @@
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info @articles %>
+  </div>
+
+
+
+  <table>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :title) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :author) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :updated_at) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :created_at) %></th>
+    </tr>
+
+    <% articles.each do |article| %>
+      <tr>
+        <td><%= link_to(article.title, article_path(article)) %></td>
+        <td><%= article.author %></td>
+        <td><%= article.updated_at %></td>
+        <td><%= article.decorated_created_at %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate @articles %>

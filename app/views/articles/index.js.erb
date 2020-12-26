@@ -1,0 +1,6 @@
+<% js = escape_javascript(
+  render(partial: 'articles/list', locals: { articles: @articles })
+) %>
+
+// const filter_result = document.getElementById(filterrific_results).html("<%= js %>");
+$("#filterrific_results").html("<%= js %>")

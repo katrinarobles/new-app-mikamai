@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one_attached :photo
   has_many :articles, dependent: :destroy
+
+  def self.options_for_select
+    order("LOWER(name)").map { |e| [e.name, e.surname, e.id] }
+  end
 end
