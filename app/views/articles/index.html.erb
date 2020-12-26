@@ -1,56 +1,34 @@
+<div class="articles-container">
+  <h1>Articles</h1>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-8 m-2">
-      <% @articles.each do  |article| %>
-    <p> <%= link_to article.title, article_path(article) %> -
-      <% if policy(article).edit? %><%= link_to edit_article_path(article) do %><i class="far fa-edit"></i> <% end %> <% end %>
-      <% if policy(article).destroy? %><%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } do %> <i class="far fa-trash-alt"></i> <% end %> <% end %></p>
+  <%= form_for_filterrific @filterrific do |f| %>
+    <div>
+      Search
+      <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+      <%= f.text_field(
+        :search_query,
+        class: 'filterrific-periodically-observed'
+      ) %>
+    </div>
+    <div>
+      Author
+      <%= f.select(
+        :with_author_name,
+        @filterrific.select_options[:with_author_name],
+        { include_blank: '- Any -' }
+      ) %>
+    </div>
+    <div>
+      Sorted by
+      <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by],
+          {}
+      )%>
+    </div>
+    <%# add an automated spinner to your form when the list is refreshed %>
+    <%= render_filterrific_spinner %>
   <% end %>
+  <%= render(
+    partial: 'articles/list',
+    locals: { articles: @articles }
+  ) %>
 </div>
-</div>
-</div>
-
-<%# app/views/students/index.html.erb %>
-<h1>Articles</h1>
-
-<%= form_for_filterrific @filterrific do |f| %>
-  <div>
-    Search
-    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-    <%= f.text_field(
-      :search_query,
-      class: 'filterrific-periodically-observed'
-    ) %>
-  </div>
-  <div>
-    Author
-    <%= f.select(
-      :with_user_id,
-      @filterrific.select_options[:with_user_id],
-      { include_blank: '- Any -' }
-    ) %>
-  </div>
-  <div>
-    Created After
-    <%= f.text_field(:with_created_at_gte, class: 'js-datepicker') %>
-  </div>
-  <div>
-    Sorted by
-    <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
-  </div>
-  <div>
-    <%= link_to(
-      'Reset filters',
-      reset_filterrific_url,
-    ) %>
-  </div>
-  <%# add an automated spinner to your form when the list is refreshed %>
-  <%= render_filterrific_spinner %>
-<% end %>
-
-<%= render(
-  partial: 'articles/list',
-  locals: { articles: @articles }
-) %>
-<%= will_paginate @articles %>

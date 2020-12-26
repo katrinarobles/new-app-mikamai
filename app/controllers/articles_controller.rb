@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     params[:filterrific],
     select_options: {
         sorted_by: Article.options_for_sorted_by,
-        with_user_id: User.options_for_select,
+        with_author_name: User.options_for_select,
       },
     ) or return
     @articles = policy_scope(Article)
@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    console
   end
 
   def new
@@ -55,7 +56,7 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :text, :user_id, :photo)
+    params.require(:article).permit(:title, :text, :user_id, :photo, :url)
   end
 
   def set_article

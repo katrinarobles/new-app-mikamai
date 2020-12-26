@@ -11,6 +11,7 @@ class PagesController < ApplicationController
     else
       @articles = Article.all
     end
+    console
   end
 
   def dashboard

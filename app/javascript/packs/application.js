@@ -35,6 +35,7 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   datePicker();
   filterricJquery();
+  datepickr();
   // flatpickr("[data-behavior='flatpickr']", {
   //   altInput: true,
   //   altFormat: "F j, Y",

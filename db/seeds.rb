@@ -64,10 +64,12 @@ User.all.each do |user|
     article = articles[c_count]
     title = article["title"]
     content = article["content"]
+    content_url = article["url"]
     file = URI.open(article["urlToImage"])
     new_article = Article.new(
       title: title,
-      text: content
+      text: content,
+      url: content_url
       )
     new_article.photo.attach(io: file, filename: "article#{c_count}.png", content_type: 'image/png')
     c_count += 1

@@ -1,8 +1,8 @@
 <div id="filterrific_results">
 
-  <div>
+<!--   <div>
     <%= page_entries_info @articles %>
-  </div>
+  </div> -->
 
 
 
@@ -18,7 +18,7 @@
       <tr>
         <td><%= link_to(article.title, article_path(article)) %></td>
         <td><%= article.author %></td>
-        <td><%= article.updated_at %></td>
+        <td><%= article.decorated_updated_at %></td>
         <td><%= article.decorated_created_at %></td>
       </tr>
     <% end %>
