@@ -18,7 +18,7 @@ class Article < ApplicationRecord
     available_filters: [
     :sorted_by,
     :search_query,
-    :with_author_name,
+    :with_user_id,
     :with_created_at_gte,
     :with_updated_at_gte
     ]
@@ -87,9 +87,9 @@ class Article < ApplicationRecord
   # scope :with_user_id, ->(user_ids) {
   #   where(:user_id => [*user_ids])
   # }
-  scope :with_author_name, ->(author_name) {
+  scope :with_user_id, ->(user_id) {
     # Filters students with any of the given country_ids
-  where("articles.author = ?", author_name).joins(:user)
+  where(:user_id => [*user_ids]).joins(:user)
   }
   scope :with_created_at_gte, ->(ref_date) {
     where('articles.created_at >= ?', ref_date)
@@ -114,7 +114,7 @@ class Article < ApplicationRecord
   end
 
   def full_name
-    [last_name, first_name].compact.join(', ')
+    [surname, name].compact.join(', ')
   end
 
   def decorated_created_at

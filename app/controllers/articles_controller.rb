@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
     params[:filterrific],
     select_options: {
         sorted_by: Article.options_for_sorted_by,
-        with_author_name: User.options_for_select,
+        with_user_id: User.options_for_select,
       },
     ) or return
     @articles = policy_scope(Article)

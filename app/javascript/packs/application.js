@@ -13,7 +13,8 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
+require filterrific/filterrific-jquery
+require turbolinks
 // ----------------------------------------------------
 // Note(lewagon): ABOVE IS RAILS DEFAULT CONFIGURATION
 // WRITE YOUR OWN JS STARTING FROM HERE 👇
