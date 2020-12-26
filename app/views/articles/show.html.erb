@@ -5,7 +5,8 @@
       <h1><%= @article.title %></h1>
       <p>Author: <%= @article.author%></p>
 
-      <p> <%= @article.text %></p>
+      <p> <%= @article.text.gsub(/\[.*\]/, "") %></p>
+      <p> <%= link_to 'Read More', @article.url %></p>
       <p> <% if policy(@article).edit? %><%= link_to edit_article_path(@article) do %><i class="far fa-edit"></i> <% end %><% end %>
           <% if policy(@article).destroy? %><%= link_to article_path(@article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } do %> <i class="far fa-trash-alt"></i> <% end %><% end %></p>
 

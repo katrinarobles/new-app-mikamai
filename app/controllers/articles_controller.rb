@@ -3,10 +3,25 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
+    @filterrific = initialize_filterrific(
+    Article,
+    params[:filterrific],
+    select_options: {
+        sorted_by: Article.options_for_sorted_by,
+        with_user_id: User.options_for_select,
+      },
+    ) or return
     @articles = policy_scope(Article)
+    @articles = Article.paginate(page: params[:page])
+
+    respond_to do |format|
+     format.html
+     format.js
+     end
   end
 
   def show
+    console
   end
 
   def new
@@ -41,7 +56,7 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :text, :user_id, :photo)
+    params.require(:article).permit(:title, :text, :user_id, :photo, :url)
   end
 
   def set_article

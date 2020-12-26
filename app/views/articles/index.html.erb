@@ -1,12 +1,43 @@
+<!-- articles/index.html.erb -->
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-8 m-2">
-      <% @articles.each do  |article| %>
-    <p> <%= link_to article.title, article_path(article) %> -
-      <% if policy(article).edit? %><%= link_to 'Edit', edit_article_path(article) %> <% end %>||
-      <% if policy(article).destroy? %><%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: "Are you sure you would like to delete?" } %> <% end %></p>
+
+<div class="articles-container">
+  <h1>Articles</h1>
+
+  <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
+    <div>
+      Search
+      <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+      <%= f.text_field(
+        :search_query,
+        class: 'filterrific-periodically-observed'
+      ) %>
+    </div>
+    <div>
+      Author
+      <%= f.select(
+        :with_user_id,
+        @filterrific.select_options[:with_user_id],
+        { include_blank: '- Any -' }
+      ) %>
+    </div>
+    <div>
+      Sorted by
+      <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by],
+          {}
+      )%>
+    </div>
+    <div>
+      <%= f.submit 'Filter' %>
+    </div>
+    <%# add an automated spinner to your form when the list is refreshed %>
+    <%= render_filterrific_spinner %>
   <% end %>
+  <%= render(
+    partial: 'articles/list',
+    locals: { articles: @articles }
+  ) %>
 </div>
-</div>
-</div>
+
+
+
