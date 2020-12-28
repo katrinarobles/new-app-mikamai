@@ -5,19 +5,9 @@
         <%= f.input :photo, as: :file %>
         <%= f.input :title, label: 'Title' %>
         <%= f.input :text, label: "Whacha think?" %>
+        <%= f.input :url, label: "URL" %>
         <%= f.submit "Submit", class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
-</div>
-
-
-<div class="field">
-  <%= form.label :title %>
-  <%= form.text_filed :title %>
-</div>
-
-<div class="field">
-  <%= form.label :created_at %>
-  <%= form.text_field :created_at, data: { behavior: "flatpickr"} %>
 </div>

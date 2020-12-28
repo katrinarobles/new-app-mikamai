@@ -40,8 +40,10 @@
 <div class="container">
   <div class="row justify-content-center">
     <div id="home-page" class="col-6 m-2">
-    <h1>Articles of the World</h1>
-    <p>Share your ideas to the world</p>
+    <h1>Atlas</h1>
+    <p>
+      <span id="banner-typed-text"></span>
+    </p>
 
     <% if !user_signed_in? %>
       <p><%= link_to "Login", new_user_session_path %> || <%= link_to "Sign Up", new_user_registration_path%></p>
@@ -65,13 +67,22 @@
           <p><%= submit_tag "Search", class: "btn btn-primary m-2" %></p>
         <% end %>
     </div>
-      <div id="articles-list">
-        <% @articles.each do |article| %>
-          <h4><%= link_to article.title, article_path(article) %></h4>
-          <p><%= article.text %></p>
-          <p><%= article.author %></p>
-        <% end %>
-      </div>
+
+<% @articles.each do |article| %>
+    <div class="cards">
+      <%= link_to article_path(article) do %>
+          <div class="single-crd">
+              <%= cl_image_tag article.photo.key, class: "picture" %>
+          <div class="single-crd-infos">
+              <h4><%= link_to article.title, article_path(article) %></h4>
+              <p> <%= article.text.gsub(/\[.*\]/, "") %></p>
+              <p><%= article.author %></p>
+          </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+      <%= link_to "See all articles", articles_path %>
     </div>
   </div>
 </div>
