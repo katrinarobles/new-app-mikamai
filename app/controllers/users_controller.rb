@@ -5,10 +5,6 @@ class UsersController < ApplicationController
     @courses = @user.courses
   end
 
-  # def dashboard
-  #   @user = current_user
-  #   @courses = @user.courses
-  # end
 
   private
 

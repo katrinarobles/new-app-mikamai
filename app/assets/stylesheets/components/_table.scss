@@ -1,0 +1,32 @@
+table .pretty {
+  // border-collapse: collapse;
+  margin: 25%;
+}
+
+.pretty th {
+  background-color: #e3d4b4;
+  margin: 10%;
+}
+.pretty td, .pretty th {
+  padding: 5px 15px;
+}
+
+.pretty .author {
+  // padding-right: 50px;
+}
+
+.pretty th .current {
+  padding-right: 40%;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.pretty th .asc {
+  background-image: asset-url("up.png");
+  // background-size: 300px 100px;
+}
+
+.pretty th .desc {
+  background-image: asset-url("down.png");
+  // background-size: 15px 15px;
+}

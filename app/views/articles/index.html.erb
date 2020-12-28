@@ -1,43 +1,31 @@
-<!-- articles/index.html.erb -->
-
 
 <div class="articles-container">
-  <h1>Articles</h1>
 
-  <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
-    <div>
-      Search
-      <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-      <%= f.text_field(
-        :search_query,
-        class: 'filterrific-periodically-observed'
-      ) %>
-    </div>
-    <div>
-      Author
-      <%= f.select(
-        :with_user_id,
-        @filterrific.select_options[:with_user_id],
-        { include_blank: '- Any -' }
-      ) %>
-    </div>
-    <div>
-      Sorted by
-      <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by],
-          {}
-      )%>
-    </div>
-    <div>
-      <%= f.submit 'Filter' %>
-    </div>
-    <%# add an automated spinner to your form when the list is refreshed %>
-    <%= render_filterrific_spinner %>
-  <% end %>
-  <%= render(
-    partial: 'articles/list',
-    locals: { articles: @articles }
-  ) %>
+<%= form_tag articles_path, :method => 'get' do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+        <p>
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag "Search", :title => nil %>
+        </p>
+<% end %>
+<div class="index-container">
+    <table class="pretty">
+        <th> <%= sortable "title", "Sort By: Title" %> </th>
+        <th class="author"> <%= sortable "user_id", "Author" %></th>
+        <th> <%= sortable "created_at", "Created" %></th>
+        <th><%= sortable "updated_at", "Updated" %></th>
+        <% for article in @articles %>
+            <tr>
+                <td><%= link_to article_path(article) do %> <%= truncate(article.title, :length => 50) %> <% end %></td>
+                <td><%= article.user.surname %></td>
+                <td><%= article.created_at.strftime("%B %e, %Y") %></td>
+                <td><%= article.updated_at.strftime("%B %e, %Y") %></td>
+            </tr>
+        <% end %>
+    </table>
 </div>
-
+    <%= will_paginate @articles, :container => false %>
+</div>
 
 

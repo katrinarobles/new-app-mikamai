@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
 
   def self.options_for_select
+    users = User.arel_table
     order("LOWER(name)").map { |e| [e.name, e.surname, e.id] }
   end
 end
