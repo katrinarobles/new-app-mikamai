@@ -1,20 +1,19 @@
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-6 m-2">
+    <div class="dashboard d-flex">
+        <div class="col-4 m-2">
           <h1> Welcome <%= current_user.name.split(" ").first.capitalize %>,</h1>
           <!-- <h1>Pages#home</h1> -->
           <p> This is your dashboard</p>
           <p>Name: <%= current_user.name.split(" ").first.capitalize %> <%= current_user.surname.split(" ").first.capitalize %></p>
           <p>Email: <%= current_user.email %></p>
-          <%= link_to 'Write an Article', new_article_path %>
+          <%= link_to "Write an article", new_article_path, class: "btn btn-ghost" %>
+        </div>
+        <div class="col-8 m-2">
+          <h2>Your list of Articles:</h2> <% current_user.articles.each do |article| %>
+              <p><%= link_to article.title, article_path(article) %>  <%= link_to edit_article_path(article) do %><i class="far fa-edit"></i> <% end %>
+                <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure?" } do %> <i class="far fa-trash-alt"></i> <% end %>
+              </p>
+          <% end %>
         </div>
     </div>
-</div>
-
-<div class="m-3">
-    <h2>Your list of Articles:</h2> <% current_user.articles.each do |article| %>
-        <p><%= link_to article.title, article_path(article) %>  <%= link_to edit_article_path(article) do %><i class="far fa-edit"></i> <% end %>
-          <%= link_to article_path(article), method: :delete, data: { confirm: "Are you sure?" } do %> <i class="far fa-trash-alt"></i> <% end %>
-        </p>
-    <% end %>
 </div>
