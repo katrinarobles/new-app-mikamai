@@ -1,0 +1,32 @@
+<!-- INDEX.HTML.ERB -->
+<div class="articles-container">
+
+<%= form_tag articles_path, :method => 'get' do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+        <p>
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag "Search", :title => nil %>
+        </p>
+<% end %>
+<div class="index-container">
+    <table class="pretty">
+        <th> <%= sortable "title", "Sort By: Title" %> </th>
+        <th class="author"> <%= sortable "user_id", "Author" %></th>
+        <th> <%= sortable "created_at", "Created" %></th>
+        <th><%= sortable "updated_at", "Updated" %></th>
+        <% for article in @articles %>
+            <tr>
+                <td><%= link_to article_path(article) do %> <%= truncate(article.title, :length => 50) %> <% end %></td>
+                <td><%= article.user.surname %></td>
+                <td><%= article.created_at.strftime("%B %e, %Y") %></td>
+                <td><%= article.updated_at.strftime("%B %e, %Y") %></td>
+            </tr>
+        <% end %>
+    </table>
+</div>
+<%= @articles.count %>
+    <%= will_paginate @articles, :container => false %>
+</div>
+
+

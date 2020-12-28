@@ -1,6 +1,3 @@
-<!-- <div class="home-banner">
-  <h1>Atlas News</h1>
-</div> -->
 <div class="carousel-container">
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -46,7 +43,7 @@
     </p>
 
     <% if !user_signed_in? %>
-      <p><%= link_to "Login", new_user_session_path %> || <%= link_to "Sign Up", new_user_registration_path%></p>
+      <p><%= link_to "Login", new_user_session_path, class: "btn btn-gradient" %>  <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-signup"%></p>
     <% end %>
     </div>
   </div>
@@ -66,23 +63,23 @@
           %>
           <p><%= submit_tag "Search", class: "btn btn-primary m-2" %></p>
         <% end %>
-    </div>
+      </div>
 
 <% @articles.each do |article| %>
-    <div class="cards">
-      <%= link_to article_path(article) do %>
-          <div class="single-crd">
-              <%= cl_image_tag article.photo.key, class: "picture" %>
-          <div class="single-crd-infos">
-              <h4><%= link_to article.title, article_path(article) %></h4>
-              <p> <%= article.text.gsub(/\[.*\]/, "") %></p>
-              <p><%= article.author %></p>
-          </div>
-      <% end %>
-    </div>
+      <div class="cards">
+        <%= link_to article_path(article) do %>
+            <div class="single-crd">
+                <%= cl_image_tag article.photo.key, class: "picture" %>
+              <div class="single-crd-infos">
+                  <h4><%= link_to article.title, article_path(article) %></h4>
+                  <p> <%= article.text.gsub(/\[.*\]/, "") %></p>
+                  <p><%= article.author %></p>
+              </div>
+        <% end %>
+            </div>
   <% end %>
-</div>
-      <%= link_to "See all articles", articles_path %>
+      </div>
+      <%= link_to "More Articles", articles_path, class: "btn btn-gradient" %>
     </div>
   </div>
 </div>

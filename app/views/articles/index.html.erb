@@ -1,31 +1,33 @@
-
 <div class="articles-container">
 
-<%= form_tag articles_path, :method => 'get' do %>
-    <%= hidden_field_tag :direction, params[:direction] %>
-    <%= hidden_field_tag :sort, params[:sort] %>
-        <p>
-            <%= text_field_tag :search, params[:search] %>
-            <%= submit_tag "Search", :title => nil %>
-        </p>
+
+<%= search_form_for @q do |f| %>
+    <div class="field">
+        <%= f.search_field :title_or_text_or_user_surname_cont %> <%= f.submit "Search" %>
+    </div>
+    <div class="counter m-2">
+      <p> Found <strong><%= @articles.count %></strong> results </p>
+
+    </div>
 <% end %>
-<div class="index-container">
+
+  <div class="index-container">
     <table class="pretty">
-        <th> <%= sortable "title", "Sort By: Title" %> </th>
-        <th class="author"> <%= sortable "user_id", "Author" %></th>
-        <th> <%= sortable "created_at", "Created" %></th>
-        <th><%= sortable "updated_at", "Updated" %></th>
-        <% for article in @articles %>
+      <tr>
+        <th><%= sort_link @q, :title, "Title" %></th>
+        <th><%= sort_link(@q, :user_surname, 'Surname') %></th>
+        <th><%= sort_link @q, :created_at, "Created" %></th>
+        <th><%= sort_link @q, :updated_at, "Updated" %></th>
+      </tr>
+      <%  @articles.each do |article|  %>
             <tr>
                 <td><%= link_to article_path(article) do %> <%= truncate(article.title, :length => 50) %> <% end %></td>
                 <td><%= article.user.surname %></td>
                 <td><%= article.created_at.strftime("%B %e, %Y") %></td>
                 <td><%= article.updated_at.strftime("%B %e, %Y") %></td>
             </tr>
-        <% end %>
+      <% end %>
     </table>
+  </div>
+   <%= will_paginate @articles, :container => false %>
 </div>
-    <%= will_paginate @articles, :container => false %>
-</div>
-
-

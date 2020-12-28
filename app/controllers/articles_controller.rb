@@ -5,7 +5,8 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = policy_scope(Article)
-    @articles = Article.joins(:user).search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    @q = Article.ransack(params[:q])
+    @articles = @q.result.includes(:user).page(params[:page]).paginate(:per_page => 5, :page => params[:page])
   end
 
   def show
@@ -54,12 +55,12 @@ class ArticlesController < ApplicationController
     authorize @article
   end
 
-  def sort_column
-    Article.joins(:user).column_names.include?(params[:sort]) ? params[:sort] : "title"
-    # Article.joins(:user).column_names.include?(params[:sort]) ? params[:sort] : "title"
-  end
+  # def sort_column
+  #   Article.joins(:user).column_names.include?(params[:sort]) ? params[:sort] : "title"
+  #   # Article.joins(:user).column_names.include?(params[:sort]) ? params[:sort] : "title"
+  # end
 
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-  end
+  # def sort_direction
+  #   %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  # end
 end
