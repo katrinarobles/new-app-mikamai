@@ -24,6 +24,9 @@ gem 'redis', '~> 4.0'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'cloudinary', '~> 1.16.0'
 gem 'pundit'
+gem 'jquery-turbolinks'
+
+
 gem 'pg_search', '~> 2.3.0'
 gem 'will_paginate', '~> 3.3.0'
 
