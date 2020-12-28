@@ -2,7 +2,6 @@
 require 'faker'
 require 'json'
 require 'open-uri'
-require 'pry'
 
 User.destroy_all
 Article.destroy_all
